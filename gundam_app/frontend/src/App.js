@@ -1,13 +1,12 @@
-import React from 'react';
-import GundamList from './components/GundamList';
+import React from "react";
+import "./App.css";
 
 function App() {
-    return (
-        <div className="App">
-            <h1>My Gundam Collection</h1>
-            <GundamList />
-        </div>
-    );
+  return (
+    <div className="App">
+      <h1>Gundam Checklist</h1>
+    </div>
+  );
 }
 
 export default App;

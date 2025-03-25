@@ -1,0 +1,135 @@
+.checklist-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url("../assets/gundam-checklist.jpg"); /* Change to new background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  h1 {
+    color: white;
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px black;
+    z-index: 1;
+  }
+  
+  .search-bar {
+    position: relative; /* Ensure it's above other elements */
+    z-index: 2; /* Higher than the overlay */
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+  }
+  
+  .gundam-list {
+    list-style: none;
+    padding: 0;
+    color: white;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 5px black;
+  }
+  
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    z-index: 0; /* Lower than the search bar */
+  }
+  
+  /* Main Layout */
+.container {
+  display: flex;
+  height: 100vh;
+  background: #2c1d1d;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background: #444;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: width 0.3s ease;
+}
+
+.sidebar.closed {
+  width: 50px;
+}
+
+.toggle-btn {
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  padding: 5px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.filter-buttons button {
+  margin: 5px 0;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  background: #666;
+  color: white;
+}
+
+.filter-buttons button:hover {
+  background: #888;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  width: 300px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.gundam-list {
+  list-style: none;
+  padding: 0;
+}
+
+.category {
+  font-size: 14px;
+  color: gray;
+}
+
+.no-results {
+  color: #ff4d4d;
+  font-style: italic;
+}

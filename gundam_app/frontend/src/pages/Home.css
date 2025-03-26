@@ -1,50 +1,43 @@
 .home-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-image: url("../assets/gundam.jpg"); /* Background Image */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  
-  h1 {
-    color: white;
-    font-size: 3rem;
-    text-shadow: 2px 2px 5px black;
-    z-index: 1;
-  }
-  
-  .start-button {
-    padding: 15px 30px;
-    font-size: 20px;
-    background-color: rgba(0, 123, 255, 0.8);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    z-index: 1;
-    transition: background 0.3s;
-    margin-top: 20px;
-  }
-  
-  .start-button:hover {
-    background-color: rgba(0, 86, 179, 0.9);
-  }
-  
-  /* Add an overlay to make text more visible */
-  .overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-    top: 0;
-    left: 0;
-    z-index: 0;
-  }
-  
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  text-shadow: 2px 2px 5px black;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for better contrast */
+}
+
+h1 {
+  position: relative;
+  z-index: 2;
+}
+
+.start-button {
+  position: relative;
+  z-index: 2;
+  padding: 10px 20px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease-in-out;
+}
+
+.start-button:hover {
+  background: rgba(255, 255, 255, 1);
+}

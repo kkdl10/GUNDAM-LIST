@@ -13,7 +13,7 @@ function Checklist() {
   const [searchQuery, setSearchQuery] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [checked, setChecked] = useState([]);
+  const [owned, setOwned] = useState([]); // Changed from checked to owned
 
   // Load Gundam data from imported JSON
   useEffect(() => {
@@ -28,7 +28,7 @@ function Checklist() {
     if (selectedCategory !== "All") {
       if (selectedCategory === "Favorites") filtered = gundams.filter(g => favorites.includes(g.id));
       else if (selectedCategory === "Wishlist") filtered = gundams.filter(g => wishlist.includes(g.id));
-      else if (selectedCategory === "Checked") filtered = gundams.filter(g => checked.includes(g.id));
+      else if (selectedCategory === "Owned") filtered = gundams.filter(g => owned.includes(g.id));
       else filtered = gundams.filter(g => g.category === selectedCategory);
     }
 
@@ -39,9 +39,9 @@ function Checklist() {
     }
 
     setFilteredGundams(filtered);
-  }, [selectedCategory, searchQuery, gundams, favorites, wishlist, checked]);
+  }, [selectedCategory, searchQuery, gundams, favorites, wishlist, owned]);
 
-  // Toggle functions for favorites, wishlist, and checked
+  // Toggle functions for favorites, wishlist, and owned
   const toggleFavorite = (id) => {
     setFavorites(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
   };
@@ -50,8 +50,8 @@ function Checklist() {
     setWishlist(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
   };
 
-  const toggleChecked = (id) => {
-    setChecked(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
+  const toggleOwned = (id) => {
+    setOwned(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
   };
 
   return (
@@ -72,7 +72,7 @@ function Checklist() {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
 
-            {["All", "HG", "RG", "MG", "PG", "Mega", "SD", "MGSD", "Favorites", "Wishlist", "Checked"].map(category => (
+            {["All", "HG", "RG", "MG", "PG", "Mega", "SD", "MGSD", "Favorites", "Wishlist", "Owned"].map(category => (
               <button
                 key={category}
                 className={`filter-btn ${selectedCategory === category ? "active" : ""}`}
@@ -106,9 +106,9 @@ function Checklist() {
                   onClick={() => toggleWishlist(gundam.id)}
                 />
                 <FaCheckSquare
-                  className={`check-icon ${checked.includes(gundam.id) ? "active" : ""}`}
+                  className={`owned-icon ${owned.includes(gundam.id) ? "active" : ""}`}
                   title="Mark as Owned"
-                  onClick={() => toggleChecked(gundam.id)}
+                  onClick={() => toggleOwned(gundam.id)}
                 />
               </div>
             </div>

@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "name": "RX-78-2 Gundam",
+      "category": "HG",
+      "image": "/images/rx-78-2.jpg"
+    },
+    {
+      "id": 2,
+      "name": "MS-06S Zaku II",
+      "category": "RG",
+      "image": "/images/ms-06s-zaku.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Unicorn Gundam",
+      "category": "MG",
+      "image": "/images/unicorn-gundam.jpg"
+    }
+  ]
+  

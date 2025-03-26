@@ -5,8 +5,10 @@
 }
 
 .checklist-container {
-  width: 100vw;
+  background-image: url("../assets/main-bg.jpg");
+  display: flex;
   height: 100vh;
+  width: 100vw;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,14 +16,12 @@
 }
 
 .sidebar {
-  width: 200px;
-  height: 100vh;
+  background-image: url("../assets/sidebar-bg.jpg");
+  width: 250px;
   background-size: cover;
   background-position: center;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  transition: width 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 .sidebar.closed {
@@ -38,31 +38,85 @@
 }
 
 .sidebar-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  padding: 20px;
 }
 
 .search-bar {
-  padding: 5px;
-  width: 90%;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 .filter-btn {
-  background: rgba(255, 255, 255, 0.7);
-  border: none;
-  padding: 8px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
   cursor: pointer;
-  transition: 0.3s;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-.filter-btn:hover {
-  background: rgba(255, 255, 255, 1);
+.filter-btn.active {
+  background-color: orange;
+  font-weight: bold;
 }
 
 .content {
-  flex-grow: 1;
+  flex: 1;
   padding: 20px;
-  color: white;
-  text-shadow: 2px 2px 5px black;
+}
+
+.gundam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  min-height: 300px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.05); /* Debugging */
+}
+
+.gundam-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.gundam-card:hover {
+  transform: scale(1.05);
+}
+
+.gundam-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+}
+
+.favorite-icon,
+.wishlist-icon,
+.check-icon {
+  cursor: pointer;
+  font-size: 1.5em;
+  transition: color 0.2s;
+}
+
+.favorite-icon.active {
+  color: red;
+}
+
+.wishlist-icon.active {
+  color: gold;
+}
+
+.check-icon.active {
+  color: green;
 }

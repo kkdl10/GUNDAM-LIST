@@ -12,6 +12,12 @@
       "image": "/images/ms-06s-zaku.jpg"
     },
     {
+      "id": 3,
+      "name": "MS-06S Zaku II",
+      "category": "RG",
+      "image": "/images/ms-06s-zaku.jpg"
+    },
+    {
       "id": 4,
       "name": "Unicorn Gundam",
       "category": "MG",

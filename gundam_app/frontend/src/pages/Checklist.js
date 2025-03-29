@@ -1,29 +1,50 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Checklist.css";
 import sidebarBg from "../assets/sidebar-bg.jpg";
 import mainBg from "../assets/main-bg.jpg";
-import { FaHeart, FaStar, FaCheckSquare } from "react-icons/fa"; // Icons
-import gundamData from "../assets/gundams.json"; // Import JSON
+import { FaHeart, FaStar, FaCheckSquare, FaSignOutAlt } from "react-icons/fa";
 
 function Checklist() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(true);
   const [gundams, setGundams] = useState([]);
   const [filteredGundams, setFilteredGundams] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [favorites, setFavorites] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
-  const [owned, setOwned] = useState([]);
+  const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
+  const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) || []);
+  const [owned, setOwned] = useState(JSON.parse(localStorage.getItem("owned")) || []);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 14; // Display 14 Gundams per page
 
-  // Load Gundam data from imported JSON
+  // Fetch Gundams from Django API
   useEffect(() => {
-    setGundams(gundamData);
-    setFilteredGundams(gundamData);
-  }, []);
+    const fetchGundams = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/gundams/", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
 
-  // Handle filtering by category and search
+        if (response.ok) {
+          const data = await response.json();
+          setGundams(data);
+          setFilteredGundams(data);
+        } else {
+          navigate("/"); // Redirect to login if unauthorized
+        }
+      } catch (error) {
+        console.error("Error fetching Gundams:", error);
+        navigate("/");
+      }
+    };
+
+    fetchGundams();
+  }, [navigate]);
+
+  // Update filters based on category & search
   useEffect(() => {
     let filtered = gundams;
 
@@ -50,17 +71,22 @@ function Checklist() {
   const endIndex = startIndex + itemsPerPage;
   const currentGundams = filteredGundams.slice(startIndex, endIndex);
 
-  // Toggle functions for favorites, wishlist, and owned
-  const toggleFavorite = (id) => {
-    setFavorites(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
+  // Toggle functions and persist to localStorage
+  const toggleItem = (list, setList, id) => {
+    const updatedList = list.includes(id) ? list.filter(item => item !== id) : [...list, id];
+    setList(updatedList);
+    localStorage.setItem(setList.name, JSON.stringify(updatedList));
   };
 
-  const toggleWishlist = (id) => {
-    setWishlist(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
-  };
+  const toggleFavorite = (id) => toggleItem(favorites, setFavorites, id);
+  const toggleWishlist = (id) => toggleItem(wishlist, setWishlist, id);
+  const toggleOwned = (id) => toggleItem(owned, setOwned, id);
 
-  const toggleOwned = (id) => {
-    setOwned(prev => prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]);
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/");
   };
 
   return (
@@ -90,6 +116,10 @@ function Checklist() {
                 {category}
               </button>
             ))}
+
+            <button className="logout-btn" onClick={handleLogout}>
+              <FaSignOutAlt /> Logout
+            </button>
           </div>
         )}
       </div>
@@ -100,7 +130,7 @@ function Checklist() {
         <div className="gundam-grid">
           {currentGundams.map((gundam) => (
             <div key={gundam.id} className="gundam-card">
-              <img src={process.env.PUBLIC_URL + gundam.image} alt={gundam.name} />
+              <img src={gundam.image} alt={gundam.name} />
               <h3>{gundam.name}</h3>
               <p>Category: {gundam.category}</p>
               <div className="actions">
